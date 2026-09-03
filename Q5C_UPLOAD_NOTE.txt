@@ -1,0 +1,30 @@
+Fusion Epoch Q5C GitHub Pages upload
+
+Purpose:
+Create one GitHub repository that becomes the controlled source home for the Fusion Epoch website.
+
+Upload these files to the repository root:
+- index.html
+- master_visual.jpg
+- README.md
+- INTEGRITY.json
+- Q5B_AUDIT.json
+- .nojekyll
+
+Do not add CNAME yet.
+Do not point fusionepoch.com to this repository yet.
+First enable GitHub Pages as a staging/public preview and visually audit it against Screenshot Master v1.2.
+
+Suggested repository name:
+fusion-epoch-website
+
+Suggested visibility:
+Public, if GitHub Pages on the chosen account requires public visibility for the free plan.
+
+GitHub Pages setting after upload:
+Settings > Pages > Build and deployment > Deploy from a branch
+Branch: main
+Folder: /(root)
+
+Control rule:
+No production-domain change until the GitHub Pages staging view passes visual and link audit.

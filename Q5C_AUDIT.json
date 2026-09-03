@@ -1,0 +1,9 @@
+{
+  "master_asset_exists": true,
+  "master_bytes": 134912,
+  "master_sha256": "eab6d5dd36ac0304549a06969d33d3ebb1f1f3ca39f5c1d38b7bd71176a379cc",
+  "master_hash_matches_locked": true,
+  "nojekyll_present": true,
+  "index_present": true,
+  "upload_note_present": true
+}
