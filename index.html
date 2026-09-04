@@ -3,34 +3,298 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Fusion Epoch: human-designed, AI-assisted decision support and learning decision support systems.">
   <title>Fusion Epoch</title>
   <style>
-    :root { --bg:#020817; }
+    :root {
+      --bg:#020817;
+      --panel:#071a38;
+      --panel2:#0a2348;
+      --line:#2f8ec4;
+      --text:#f7fbff;
+      --muted:#c8d8e9;
+      --cyan:#32d5f4;
+    }
     * { box-sizing:border-box; }
     html, body { margin:0; background:var(--bg); }
-    body { font-family:Arial, Helvetica, sans-serif; color:white; }
+    body { font-family:Arial, Helvetica, sans-serif; color:var(--text); }
     .stage { position:relative; max-width:1280px; margin:0 auto; background:var(--bg); }
     .stage img { display:block; width:100%; height:auto; }
-    .hotspot { position:absolute; display:block; border-radius:10px; }
-    .hotspot:focus-visible { outline:3px solid #35c4ff; outline-offset:2px; }
+
+    .hotspot {
+      position:absolute;
+      display:block;
+      border-radius:10px;
+      cursor:pointer;
+      background:transparent;
+      border:0;
+      padding:0;
+    }
+    .hotspot:focus-visible {
+      outline:3px solid #35c4ff;
+      outline-offset:2px;
+    }
+
+    /* Four system cards */
     .cpr   { left:15.0%; top:42.4%; width:19.7%; height:34.8%; }
     .water { left:35.5%; top:42.4%; width:19.4%; height:34.8%; }
     .atmos { left:55.7%; top:42.4%; width:19.8%; height:34.8%; }
     .exec  { left:76.3%; top:42.4%; width:20.2%; height:34.8%; }
+
+    /* Left navigation */
+    .home-nav    { left:.5%; top:4.8%; width:12.1%; height:7.0%; }
+    .suite-nav   { left:.5%; top:13.1%; width:12.1%; height:6.3%; }
+    .about-nav   { left:.5%; top:20.0%; width:12.1%; height:7.0%; }
+    .access-nav  { left:.5%; top:27.1%; width:12.1%; height:7.1%; }
+    .news-nav    { left:.5%; top:35.0%; width:12.1%; height:6.5%; }
+    .docs-nav    { left:.5%; top:42.1%; width:12.1%; height:6.3%; }
+    .support-nav { left:.5%; top:49.2%; width:12.1%; height:6.2%; }
+    .contact-nav { left:.5%; top:56.3%; width:12.1%; height:6.4%; }
+    .usage-nav   { left:.5%; top:63.8%; width:12.1%; height:7.5%; }
+
+    .modal-backdrop {
+      position:fixed;
+      inset:0;
+      background:rgba(0,7,20,.78);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+      z-index:50;
+    }
+    .modal-backdrop.open { display:flex; }
+
+    .modal {
+      width:min(720px, 96vw);
+      max-height:86vh;
+      overflow:auto;
+      background:linear-gradient(180deg,var(--panel2),var(--panel));
+      border:1px solid rgba(70,190,244,.65);
+      border-radius:18px;
+      box-shadow:0 22px 70px rgba(0,0,0,.55);
+      padding:24px 24px 22px;
+    }
+    .modal h2 {
+      margin:0 42px 10px 0;
+      font-size:clamp(1.45rem,3vw,2rem);
+      line-height:1.15;
+    }
+    .modal h3 {
+      margin:22px 0 8px;
+      color:var(--cyan);
+      font-size:1.05rem;
+    }
+    .modal p {
+      margin:8px 0;
+      color:var(--muted);
+      line-height:1.55;
+    }
+    .event {
+      margin-top:14px;
+      padding:16px 17px;
+      background:rgba(14,51,91,.72);
+      border:1px solid rgba(70,190,244,.45);
+      border-radius:14px;
+    }
+    .event strong { color:#fff; }
+    .event .date { color:#ffd166; font-weight:700; }
+    .close {
+      float:right;
+      margin:-6px -6px 0 12px;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.35);
+      background:#0b294f;
+      color:#fff;
+      font-size:24px;
+      line-height:36px;
+      cursor:pointer;
+    }
+    .contact-link {
+      color:#7ee8ff;
+      text-decoration:none;
+      border-bottom:1px solid rgba(126,232,255,.45);
+    }
+    .contact-link:hover, .contact-link:focus { border-bottom-color:#7ee8ff; }
+
+    .sr-only {
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    @media (max-width:680px) {
+      .modal-backdrop { padding:10px; }
+      .modal { padding:20px 18px; border-radius:14px; }
+      .modal p { font-size:.96rem; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * { scroll-behavior:auto !important; }
+    }
   </style>
 </head>
 <body>
   <main class="stage" aria-label="Fusion Epoch landing page">
-    <img src="master_visual.jpg" alt="Fusion Epoch visual master">
-    <a class="hotspot cpr" href="#cpr-gf" aria-label="CPR GF DSS Pre-Review"></a>
-    <a class="hotspot water" href="#open-water" aria-label="Open Water LPDSS"></a>
-    <a class="hotspot atmos" href="#atmospheric-science" aria-label="Atmospheric Science LDSS"></a>
-    <a class="hotspot exec" href="#eexecutor" aria-label="eExecutor.ai DSS"></a>
+    <img src="master_visual.jpg" alt="Fusion Epoch home page showing four decision support and learning decision support systems">
+
+    <button class="hotspot home-nav" data-panel="home" aria-label="Home"></button>
+    <button class="hotspot suite-nav" data-panel="suite" aria-label="DSS and LDSS suite"></button>
+    <button class="hotspot about-nav" data-panel="about" aria-label="About Fusion Epoch"></button>
+    <button class="hotspot access-nav" data-panel="access" aria-label="DSS Access Gateway information"></button>
+    <button class="hotspot news-nav" data-panel="news" aria-label="News and Updates"></button>
+    <button class="hotspot docs-nav" data-panel="docs" aria-label="Documentation"></button>
+    <button class="hotspot support-nav" data-panel="support" aria-label="Support"></button>
+    <button class="hotspot contact-nav" data-panel="contact" aria-label="Contact"></button>
+    <button class="hotspot usage-nav" data-panel="usage" aria-label="Usage counters information"></button>
+
+    <button class="hotspot cpr" data-panel="cpr" aria-label="CPR GF DSS Pre-Review information"></button>
+    <button class="hotspot water" data-panel="water" aria-label="Open Water information"></button>
+    <button class="hotspot atmos" data-panel="atmos" aria-label="Atmospheric Science LDSS information"></button>
+    <button class="hotspot exec" data-panel="exec" aria-label="eExecutor.ai DSS information"></button>
   </main>
 
-  <section id="cpr-gf" hidden></section>
-  <section id="open-water" hidden></section>
-  <section id="atmospheric-science" hidden></section>
-  <section id="eexecutor" hidden></section>
+  <div class="modal-backdrop" id="modalBackdrop" role="presentation">
+    <section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+      <button class="close" id="closeModal" aria-label="Close">×</button>
+      <div id="modalContent"></div>
+    </section>
+  </div>
+
+  <div class="sr-only" aria-live="polite" id="statusLive"></div>
+
+  <script>
+    const contact = 'michaeljsavage80@outlook.com';
+
+    const panels = {
+      home: {
+        title: 'Fusion Epoch',
+        body: `
+          <p>Fusion Epoch brings together human-designed, AI-assisted decision support and learning decision support systems. Human judgement remains in control.</p>
+          <p>Select any of the four system cards for a concise public overview.</p>`
+      },
+      suite: {
+        title: 'DSS and LDSS Suite',
+        body: `
+          <p>The current suite includes CPR GF DSS Pre-Review, Open Water, Atmospheric Science LDSS and eExecutor.ai DSS.</p>
+          <p>The systems are at different stages of controlled development and release. This public website provides information without implying that an unreleased system is available for unrestricted launch.</p>`
+      },
+      about: {
+        title: 'About Fusion Epoch',
+        body: `
+          <p>Fusion Epoch is a family of decision-support and learning-decision-support systems designed around human judgement, transparent reasoning and controlled AI assistance.</p>
+          <p>Development is led by Professor Michael J Savage, Professor Emeritus, University of KwaZulu-Natal.</p>`
+      },
+      access: {
+        title: 'DSS Access Gateway',
+        body: `
+          <p>Access to systems that require controlled release is managed separately from this public information layer.</p>
+          <p>Public launch routes will be added only when the relevant system has completed its release checks. The website does not expose development-only launch links.</p>`
+      },
+      news: {
+        title: 'News and Updates',
+        body: `
+          <div class="event">
+            <strong>Wits seminar: CPR Ground Floor</strong>
+            <p class="date">Wednesday, 21 October 2026 · 13:00 to 14:00</p>
+            <p>Seminar at Wits University on CPR Ground Floor Pre-Review and researcher-development work.</p>
+          </div>`
+      },
+      docs: {
+        title: 'Documentation',
+        body: `
+          <p>Public documentation is released with each system when the relevant material has been cleared for public use.</p>
+          <p>System-specific information is available through the four system cards on this page.</p>`
+      },
+      support: {
+        title: 'Support',
+        body: `
+          <p>For questions about Fusion Epoch or a specific system, contact Professor Michael J Savage.</p>
+          <p><a class="contact-link" href="mailto:${contact}">${contact}</a></p>`
+      },
+      contact: {
+        title: 'Contact',
+        body: `
+          <p>Professor Michael J Savage<br>Professor Emeritus, University of KwaZulu-Natal</p>
+          <p><a class="contact-link" href="mailto:${contact}">${contact}</a></p>`
+      },
+      usage: {
+        title: 'Usage Counters',
+        body: `
+          <p>The visible counters on the current staging visual are informational only and are not used as evidence of system performance, impact or endorsement.</p>
+          <p>Any future analytics will be governed separately from the public information shown here.</p>`
+      },
+      cpr: {
+        title: 'CPR GF DSS Pre-Review',
+        body: `
+          <p>A human-designed, AI-assisted manuscript-readiness decision support system intended to help authors identify and address issues before formal journal review.</p>
+          <p>This public page provides information only. Controlled access and release routes are managed separately.</p>`
+      },
+      water: {
+        title: 'Open Water',
+        body: `
+          <p>A learning and planning decision-support system being developed for open-water environmental reasoning.</p>
+          <p>It is presented here as work in progress. Public launch access will be added only after the relevant release checks are complete.</p>`
+      },
+      atmos: {
+        title: 'Atmospheric Science LDSS',
+        body: `
+          <p>A learning decision support system for atmospheric science and environmental measurement, designed to support progressive reasoning rather than replace expert judgement.</p>
+          <p>It is presented here as work in progress. Public launch access will be added only after the relevant release checks are complete.</p>`
+      },
+      exec: {
+        title: 'eExecutor.ai DSS',
+        body: `
+          <p>A governed decision-support system for real-world work execution, with human-controlled outward action.</p>
+          <p>It is presented here as work in progress. Public launch access will be added only after the relevant release checks are complete.</p>`
+      }
+    };
+
+    const backdrop = document.getElementById('modalBackdrop');
+    const modal = document.getElementById('modal');
+    const content = document.getElementById('modalContent');
+    const closeButton = document.getElementById('closeModal');
+    const live = document.getElementById('statusLive');
+    let lastTrigger = null;
+
+    function openPanel(key, trigger) {
+      const panel = panels[key];
+      if (!panel) return;
+      lastTrigger = trigger || null;
+      content.innerHTML = `<h2 id="modalTitle">${panel.title}</h2>${panel.body}`;
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      live.textContent = panel.title + ' opened';
+      modal.focus();
+    }
+
+    function closePanel() {
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+      live.textContent = 'Panel closed';
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    document.querySelectorAll('[data-panel]').forEach(el => {
+      el.addEventListener('click', () => openPanel(el.dataset.panel, el));
+    });
+
+    closeButton.addEventListener('click', closePanel);
+
+    backdrop.addEventListener('click', event => {
+      if (event.target === backdrop) closePanel();
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && backdrop.classList.contains('open')) closePanel();
+    });
+  </script>
 </body>
 </html>
