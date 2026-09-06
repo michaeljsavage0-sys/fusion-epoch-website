@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Fusion Epoch: human-designed, AI-assisted decision support and learning decision support systems.">
 <title>Fusion Epoch</title>
+<link rel="preload" as="image" href="master_visual.jpg">
 <style>
 :root{--bg:#06285c;--cyan:#35c4ff;--panel:#061a36;--line:#2f6fa6;--text:#fff;--muted:#e6f3ff}
 *{box-sizing:border-box}
@@ -17,24 +18,24 @@ body{font-family:Arial,Helvetica,sans-serif;color:var(--text)}
 .hotspot:focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
 
 /* Four application cards */
-.cpr{left:13.5%;top:46.8%;width:22.3%;height:46.1%}
-.water{left:36.6%;top:46.8%;width:19.1%;height:46.1%}
-.atmos{left:56.7%;top:46.8%;width:19.8%;height:46.1%}
-.exec{left:77.4%;top:46.8%;width:21.4%;height:46.1%}
+.cpr{left:15.0%;top:42.5%;width:19.6%;height:34.5%}
+.water{left:35.7%;top:42.5%;width:18.9%;height:34.5%}
+.atmos{left:55.9%;top:42.5%;width:19.6%;height:34.5%}
+.exec{left:76.8%;top:42.5%;width:20.1%;height:34.5%}
 
 /* Two horizontal information tabs above the cards */
-.about-btn{left:15.0%;top:31.4%;width:19.0%;height:7.0%}
-.gateway-btn{left:35.5%;top:31.4%;width:20.0%;height:7.0%}
+.about-btn{left:17.25%;top:29.4%;width:17.0%;height:5.4%}
+.gateway-btn{left:35.35%;top:29.4%;width:17.9%;height:5.4%}
 
 /* Left navigation rail */
-.nav-home{left:.2%;top:2.6%;width:12.6%;height:7.4%}
-.nav-suite{left:.2%;top:11.4%;width:12.6%;height:6.3%}
-.nav-about{left:.2%;top:18.7%;width:12.6%;height:7.2%}
-.nav-gateway{left:.2%;top:27.6%;width:12.6%;height:7.1%}
-.nav-news{left:.2%;top:36.5%;width:12.6%;height:6.8%}
-.nav-docs{left:.2%;top:45.4%;width:12.6%;height:6.8%}
-.nav-support{left:.2%;top:54.6%;width:12.6%;height:6.8%}
-.nav-contact{left:.2%;top:63.5%;width:12.6%;height:6.8%}
+.nav-home{left:0;top:5.0%;width:12.6%;height:6.5%}
+.nav-suite{left:0;top:11.7%;width:12.6%;height:7.0%}
+.nav-about{left:0;top:19.0%;width:12.6%;height:7.7%}
+.nav-gateway{left:0;top:26.9%;width:12.6%;height:7.9%}
+.nav-news{left:0;top:34.9%;width:12.6%;height:7.6%}
+.nav-docs{left:0;top:42.8%;width:12.6%;height:7.5%}
+.nav-support{left:0;top:50.3%;width:12.6%;height:5.8%}
+.nav-contact{left:0;top:56.2%;width:12.6%;height:6.5%}
 
 .home-confirm{position:absolute;left:13.4%;top:.8%;width:86%;height:39%;z-index:4;border:3px solid rgba(53,196,255,0);border-radius:18px;pointer-events:none;transition:border-color .18s ease,box-shadow .18s ease}
 .home-confirm.on{border-color:rgba(53,196,255,.72);box-shadow:0 0 24px rgba(53,196,255,.28)}
@@ -61,7 +62,7 @@ dialog::backdrop{background:rgba(0,10,25,.72)}
 </head>
 <body>
 <main class="stage" aria-label="Fusion Epoch landing page" id="home">
-  <img src="master_visual.jpg" alt="Fusion Epoch home page showing four decision support and learning decision support systems">
+  <img src="master_visual.jpg" fetchpriority="high" decoding="async" alt="Fusion Epoch home page showing four decision support and learning decision support systems">
   <div id="homeConfirm" class="home-confirm" aria-hidden="true"></div>
 
   <a class="hotspot cpr" href="#cpr-gf" data-info="cpr" aria-label="CPR GF DSS Pre-Review information"></a>
