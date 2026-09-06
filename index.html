@@ -36,6 +36,7 @@ body{font-family:Arial,Helvetica,sans-serif;color:var(--text)}
 .nav-docs{left:0;top:42.8%;width:12.6%;height:7.5%}
 .nav-support{left:0;top:50.3%;width:12.6%;height:5.8%}
 .nav-contact{left:0;top:56.2%;width:12.6%;height:6.5%}
+.nav-usage{left:0;top:63.5%;width:12.6%;height:7.2%}
 
 .home-confirm{position:absolute;left:13.4%;top:.8%;width:86%;height:39%;z-index:4;border:3px solid rgba(53,196,255,0);border-radius:18px;pointer-events:none;transition:border-color .18s ease,box-shadow .18s ease}
 .home-confirm.on{border-color:rgba(53,196,255,.72);box-shadow:0 0 24px rgba(53,196,255,.28)}
@@ -81,6 +82,7 @@ dialog::backdrop{background:rgba(0,10,25,.72)}
   <a class="hotspot nav-docs" href="#documentation" data-info="docs" aria-label="Documentation"></a>
   <a class="hotspot nav-support" href="#support" data-info="support" aria-label="Support"></a>
   <a class="hotspot nav-contact" href="#contact" data-info="contact" aria-label="Contact"></a>
+  <a class="hotspot nav-usage" href="#usage" data-info="usage" aria-label="Live Usage Counters"></a>
 </main>
 
 <dialog id="infoDialog" aria-labelledby="dlgTitle">
@@ -102,7 +104,8 @@ const INFO={
   news:{title:'News and Updates',body:'<p>Fusion Epoch website development is continuing through controlled releases.</p><p><strong>Wits seminar: CPR Ground Floor</strong><br>Wednesday, 21 October 2026, 13:00 to 14:00.</p>'},
   docs:{title:'Documentation',body:'<p>Public documentation is exposed only after the exact released documents and routes have been verified.</p><p>System-specific public information is available through the four application cards.</p>'},
   support:{title:'Support',body:`<p>For questions about Fusion Epoch or a specific system, contact Professor Michael J Savage.</p><p><a class="contact-link" href="mailto:${CONTACT}">${CONTACT}</a></p>`},
-  contact:{title:'Contact',body:`<p>Professor Michael J Savage<br>Professor Emeritus, University of KwaZulu-Natal</p><p><a class="contact-link" href="mailto:${CONTACT}">${CONTACT}</a></p>`}
+  contact:{title:'Contact',body:`<p>Professor Michael J Savage<br>Professor Emeritus, University of KwaZulu-Natal</p><p><a class="contact-link" href="mailto:${CONTACT}">${CONTACT}</a></p>`},
+  usage:{title:'Live Usage Counters',body:'<p>The counters shown on the current website are informational display values.</p><p class="status">Any future live analytics or usage reporting will be governed separately before being treated as verified usage evidence.</p>'}
 };
 
 const dlg=document.getElementById('infoDialog');
@@ -158,7 +161,7 @@ dlg.addEventListener('close',()=>{
 });
 
 const HASH_TO_INFO={
-  '#suite':'suite','#about':'about','#gateway':'gateway','#news':'news','#documentation':'docs','#support':'support','#contact':'contact',
+  '#suite':'suite','#about':'about','#gateway':'gateway','#news':'news','#documentation':'docs','#support':'support','#contact':'contact','#usage':'usage',
   '#cpr-gf':'cpr','#open-water':'water','#atmospheric-science':'atmos','#eexecutor':'exec'
 };
 window.addEventListener('DOMContentLoaded',()=>{
